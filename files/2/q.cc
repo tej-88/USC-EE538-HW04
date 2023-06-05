@@ -37,3 +37,22 @@ void Graph::DFS_helper(int root, std::map<int, bool> &marks,
                         return;
                     }
                 }
+
+// Performs DFS search on all nodes and returns the visited nodes in DFS
+// order. When there is a choice, the node with lower value should be visited
+// first. Note that this function does not take any inputs.
+std::vector<int> Graph::DFSAll() {
+    std::vector<int> visited;
+
+    for (const auto &node : adjacency_list_) {
+        auto vec_iter = std::find(visited.begin(), visited.end(), node);
+        if (vec_iter == visited.end()) {
+            auto visited_sub = DFS(node);
+            for (const auto &n_sub : visited_sub) {
+                visited.push_back(n_sub);
+            }
+        }
+    }
+
+    return visited;
+}
