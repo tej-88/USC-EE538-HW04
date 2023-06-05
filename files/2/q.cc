@@ -45,9 +45,9 @@ std::vector<int> Graph::DFSAll() {
     std::vector<int> visited;
 
     for (const auto &node : adjacency_list_) {
-        auto vec_iter = std::find(visited.begin(), visited.end(), node);
+        auto vec_iter = std::find(visited.begin(), visited.end(), node.first);
         if (vec_iter == visited.end()) {
-            auto visited_sub = DFS(node);
+            auto visited_sub = DFS(node.first);
             for (const auto &n_sub : visited_sub) {
                 visited.push_back(n_sub);
             }
