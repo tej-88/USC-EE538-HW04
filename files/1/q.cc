@@ -61,7 +61,7 @@ int FindNumberOfUniquePathsHelper(const std::vector<std::vector<int>> &grid, int
             return 0;
         }
         else {
-            return FindNumberOfUniquePaths(grid, row_start, col_start, row_end, col_end - 1);
+            return FindNumberOfUniquePathsHelper(grid, row_start, col_start, row_end, col_end - 1);
         }
     }
     else if (col_start == col_end) {
@@ -69,7 +69,7 @@ int FindNumberOfUniquePathsHelper(const std::vector<std::vector<int>> &grid, int
             return 0;
         }
         else {
-            return FindNumberOfUniquePaths(grid, row_start, col_start, row_end - 1, col_end);
+            return FindNumberOfUniquePathsHelper(grid, row_start, col_start, row_end - 1, col_end);
         }
     }
     else {
@@ -77,7 +77,7 @@ int FindNumberOfUniquePathsHelper(const std::vector<std::vector<int>> &grid, int
             return 0;
         }
         else {
-            return (FindNumberOfUniquePaths(grid, row_start, col_start, row_end - 1, col_end) + FindNumberOfUniquePaths(grid, row_start, col_start, row_end, col_end - 1));
+            return (FindNumberOfUniquePathsHelper(grid, row_start, col_start, row_end - 1, col_end) + FindNumberOfUniquePathsHelper(grid, row_start, col_start, row_end, col_end - 1));
         }
     }
 }
