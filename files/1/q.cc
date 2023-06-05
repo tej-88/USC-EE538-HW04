@@ -7,6 +7,7 @@
 
 // Implement each function of `q.h` here.
 
+std::unordered_map<std::pair<int, int>, int> memo;
 // On an m x n grid, where m is the number of rows and n is the number of
 // columns. We want to know how many unique paths exists from start point to the
 // end point. We can only move to the right or to the bottom direction. If a
@@ -48,36 +49,53 @@ int FindNumberOfUniquePaths(const std::vector<std::vector<int>> &grid,
                             }
                             
 int FindNumberOfUniquePathsHelper(const std::vector<std::vector<int>> &grid, int row_start, int col_start, int row_end, int col_end) {
-    if ((row_start == row_end) && (col_start == col_end)) {
-        if (grid[row_end][col_end] == 0) {
-            return 0;
-        }
-        else {
-            return 1;
-        }
-    }
-    else if (row_start == row_end) {
-        if (grid[row_end][col_end] == 0) {
-            return 0;
-        }
-        else {
-            return FindNumberOfUniquePathsHelper(grid, row_start, col_start, row_end, col_end - 1);
-        }
-    }
-    else if (col_start == col_end) {
-        if (grid[row_end][col_end] == 0) {
-            return 0;
-        }
-        else {
-            return FindNumberOfUniquePathsHelper(grid, row_start, col_start, row_end - 1, col_end);
-        }
+    // std::pair<int, int> start = {row_start, col_start};
+    std::pair<int, int> end = {row_end, col_end};
+    
+    if (memo.count(end) > 0) {
+        return memo[end];
     }
     else {
-        if (grid[row_end][col_end] == 0) {
-            return 0;
+
+        if ((row_start == row_end) && (col_start == col_end)) {
+            if (grid[row_end][col_end] == 0) {
+                memo[end] = 0;
+                return memo[end];
+            }
+            else {
+                memo[end] = 1
+                return memo[end];
+            }
+        }
+        else if (row_start == row_end) {
+            if (grid[row_end][col_end] == 0) {
+                memo[end] = 0;
+                return memo[end];
+            }
+            else {
+                memo[end] = FindNumberOfUniquePathsHelper(grid, row_start, col_start, row_end, col_end - 1);
+                return memo[end];
+            }
+        }
+        else if (col_start == col_end) {
+            if (grid[row_end][col_end] == 0) {
+                memo[end] = 0;
+                return memo[end];
+            }
+            else {
+                memo[end] = FindNumberOfUniquePathsHelper(grid, row_start, col_start, row_end - 1, col_end);
+                return memo[end];
+            }
         }
         else {
-            return (FindNumberOfUniquePathsHelper(grid, row_start, col_start, row_end - 1, col_end) + FindNumberOfUniquePathsHelper(grid, row_start, col_start, row_end, col_end - 1));
+            if (grid[row_end][col_end] == 0) {
+                memo[end] = 0;
+                return memo[end];
+            }
+            else {
+                memo[end] = (FindNumberOfUniquePathsHelper(grid, row_start, col_start, row_end - 1, col_end) + FindNumberOfUniquePathsHelper(grid, row_start, col_start, row_end, col_end - 1));
+                return memo[end];
+            }
         }
     }
 }
