@@ -221,3 +221,14 @@ TEST(IsConnected, EmptyGraph) {
     EXPECT_TRUE(g.IsConnected());
 }
 
+TEST(IsConnected, SingleNodeNoEdge) {
+    std::map<int, std::set<int>> adjacency_list = {{0, {}}};
+    Graph g(adjacency_list);
+    EXPECT_TRUE(g.IsConnected());
+}
+
+TEST(IsConnected, SingleNodeSingleEdge) {
+    std::map<int, std::set<int>> adjacency_list = {{0, {0}}};
+    Graph g(adjacency_list);
+    EXPECT_TRUE(g.IsConnected());
+}
