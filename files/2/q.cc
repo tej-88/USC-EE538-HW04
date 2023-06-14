@@ -68,7 +68,7 @@ std::vector<int> Graph::DFSAll() {
 // Assume root is a valid node in the graph.
 BFSReturnValue Graph::BFS(int root) {
     std::vector<int> distance(adjacency_list_.size(), 0);
-    std::vector<int> previous(adjacency_list_.size(), -1);
+    std::vector<int> previous(adjacency_list_.size(), root);
     std::vector<int> visited;
     std::map<int, std::vector<int>> path;
 
@@ -78,7 +78,7 @@ BFSReturnValue Graph::BFS(int root) {
         std::vector<int> p;
         int current_node = x;
 
-        while (current_node != -1) {
+        while (current_node != root) {
             p.push_back(current_node);
             current_node = previous[current_node];
         }
