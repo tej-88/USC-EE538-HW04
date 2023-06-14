@@ -170,3 +170,15 @@ TEST(IsBidirectional, EmptyGraph) {
     Graph g(adjacency_list);
     EXPECT_TRUE(g.IsBidirectional());
 }
+
+TEST(IsBidirectional, SingleNodeNoEdge) {
+    std::map<int, std::set<int>> adjacency_list = {{0, {}}};
+    Graph g(adjacency_list);
+    EXPECT_TRUE(g.IsBidirectional());
+}
+
+TEST(IsPathBetweenNodes, SingleNodeSingleEdge) {
+    std::map<int, std::set<int>> adjacency_list = {{0, {0}}};
+    Graph g(adjacency_list);
+    EXPECT_TRUE(g.IsBidirectional());
+}
