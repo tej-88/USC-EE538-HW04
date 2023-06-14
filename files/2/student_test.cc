@@ -150,3 +150,15 @@ TEST(IsPathBetweenNodes, MultipleNodeConnectedPath) {
     Graph g(adjacency_list);
     EXPECT_TRUE(g.IsPathBetweenNodes(0, 1));
 }
+
+TEST(IsPathBetweenNodes, MultipleNodeUnonnectedNoPath) {
+    std::map<int, std::set<int>> adjacency_list = {{0, {1, 2, 5}}, {1, {0}}, {2, {0}}, {3, {}}, {4, {5}}, {5, {0, 4}}};
+    Graph g(adjacency_list);
+    EXPECT_FALSE(g.IsPathBetweenNodes(0, 3));
+}
+
+TEST(IsPathBetweenNodes, MultipleNodeUnonnectedPath) {
+    std::map<int, std::set<int>> adjacency_list = {{0, {1, 2, 5}}, {1, {0}}, {2, {0}}, {3, {}}, {4, {5}}, {5, {0, 4}}};
+    Graph g(adjacency_list);
+    EXPECT_TRUE(g.IsPathBetweenNodes(0, 4));
+}
