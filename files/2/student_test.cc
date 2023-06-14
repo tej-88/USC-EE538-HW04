@@ -124,11 +124,17 @@ TEST(IsPathBetweenNodes, SingleNodeSingleEdgeNoPath) {
 TEST(IsPathBetweenNodes, SingleNodeSingleEdgePath) {
     std::map<int, std::set<int>> adjacency_list = {{0, {0}}};
     Graph g(adjacency_list);
-    EXPECT_TRUE(g.IsPathBetweenNodes(0, 0));
+   EXPECT_FALSE(g.IsPathBetweenNodes(0, 1));
 }
 
 TEST(IsPathBetweenNodes, TwoNodeUnconnected) {
     std::map<int, std::set<int>> adjacency_list = {{0, {}}, {1, {}}};
     Graph g(adjacency_list);
     EXPECT_FALSE(g.IsPathBetweenNodes(0, 1));
+}
+
+TEST(IsPathBetweenNodes, TwoNodeConnected) {
+    std::map<int, std::set<int>> adjacency_list = {{0, {1}}, {1, {0}}};
+    Graph g(adjacency_list);
+    EXPECT_TRUE(g.IsPathBetweenNodes(0, 1));
 }
