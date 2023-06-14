@@ -177,8 +177,26 @@ TEST(IsBidirectional, SingleNodeNoEdge) {
     EXPECT_TRUE(g.IsBidirectional());
 }
 
-TEST(IsPathBetweenNodes, SingleNodeSingleEdge) {
+TEST(IsBidirectional, SingleNodeSingleEdge) {
     std::map<int, std::set<int>> adjacency_list = {{0, {0}}};
     Graph g(adjacency_list);
     EXPECT_TRUE(g.IsBidirectional());
+}
+
+TEST(IsBidirectional, TwoNodeUnconnected) {
+    std::map<int, std::set<int>> adjacency_list = {{0, {}}, {1, {}}};
+    Graph g(adjacency_list);
+    EXPECT_TRUE(g.IsBidirectional());
+}
+
+TEST(IsBidirectional, TwoNodeConnectedBidirectional) {
+    std::map<int, std::set<int>> adjacency_list = {{0, {1}}, {1, {0}}};
+    Graph g(adjacency_list);
+    EXPECT_TRUE(g.IsBidirectional());
+}
+
+TEST(IsBidirectional, TwoNodeConnectedNotBidirectional) {
+    std::map<int, std::set<int>> adjacency_list = {{0, {1}}, {1, {}}};
+    Graph g(adjacency_list);
+    EXPECT_FALSE(g.IsBidirectional());
 }
