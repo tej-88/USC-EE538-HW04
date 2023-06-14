@@ -300,3 +300,31 @@ TEST(BFS, SingleNodeSingleEdge) {
     EXPECT_EQ(expected_path, bfs_result.path);
     EXPECT_EQ(expected_visited, bfs_result.visited);
 }
+
+TEST(BFS, TwoNodeUnconnected) {
+    std::map<int, std::set<int>> adjacency_list = {{0, {}}, {1, {}}};
+    Graph g(adjacency_list);
+    std::vector<int> expected_distance = {0, 0};
+    std::map<int, std::vector<int>> expected_path = {{0, {}}, {1, {}}};
+    std::vector<int> expected_visited = {0};
+
+    auto bfs_result = g.BFS(0);
+
+    EXPECT_EQ(expected_distance, bfs_result.distance);
+    EXPECT_EQ(expected_path, bfs_result.path);
+    EXPECT_EQ(expected_visited, bfs_result.visited);
+}
+
+TEST(BFS, TwoNodeConnected) {
+    std::map<int, std::set<int>> adjacency_list = {{0, {1}}, {1, {0}}};
+    Graph g(adjacency_list);
+    std::vector<int> expected_distance = {0, 1};
+    std::map<int, std::vector<int>> expected_path = {{0, {}}, {1, {0, 1}}};
+    std::vector<int> expected_visited = {0, 1};
+
+    auto bfs_result = g.BFS(0);
+
+    EXPECT_EQ(expected_distance, bfs_result.distance);
+    EXPECT_EQ(expected_path, bfs_result.path);
+    EXPECT_EQ(expected_visited, bfs_result.visited);
+}
