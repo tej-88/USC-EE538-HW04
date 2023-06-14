@@ -244,3 +244,15 @@ TEST(IsConnected, TwoNodeConnected) {
     Graph g(adjacency_list);
     EXPECT_TRUE(g.IsConnected());
 }
+
+TEST(IsConnected, MultipleNodeConnected) {
+    std::map<int, std::set<int>> adjacency_list = {{0, {1, 2, 3}}, {1, {0}}, {2, {0, 3}}, {3, {0}}};
+    Graph g(adjacency_list);
+    EXPECT_TRUE(g.IsConnected());
+}
+
+TEST(IsConnected, MultipleNodeNotConnected) {
+    std::map<int, std::set<int>> adjacency_list = {{0, {1, 2, 3}}, {1, {3}}, {2, {0, 3}}, {3, {1}}};
+    Graph g(adjacency_list);
+    EXPECT_FALSE(g.IsConnected());
+}
