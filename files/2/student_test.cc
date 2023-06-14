@@ -100,3 +100,11 @@ TEST(DFSAll, MultipleNodeUnonnected) {
     std::vector<int> expected = {0, 1, 2, 5, 4, 3};
     EXPECT_EQ(g.DFSAll(), expected);
 }
+
+//-----------------------------------------------------------------------------
+
+TEST(IsPathBetweenNodes, EmptyGraph) {
+    std::map<int, std::set<int>> adjacency_list;
+    Graph g(adjacency_list);
+    EXPECT_FALSE(g.IsPathBetweenNodes(0, 1));
+}
