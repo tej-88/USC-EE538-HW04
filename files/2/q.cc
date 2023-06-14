@@ -79,7 +79,7 @@ BFSReturnValue Graph::BFS(int root) {
         int current_node = x;
 
         while (current_node != -1) {
-            p.push_back[current_node];
+            p.push_back(current_node);
             current_node = previous[current_node];
         }
         std::reverse(p.begin(), p.end());
@@ -95,23 +95,29 @@ BFSReturnValue Graph::BFS(int root) {
 
 void Graph::BFS_helper(int root, std::vector<int> &distance,
                   std::vector<int> &previous, std::vector<int> &visited) {
-                    std::queue<int> bfs_q;
-                    std::map<int, bool> is_visited;
-                    bfs_q.push(root);
+                    if (adjacency_list_.count(root) == 0) {
+                        return;
+                    }
+                    else {
+                        std::queue<int> bfs_q;
+                        std::map<int, bool> is_visited;
+                        bfs_q.push(root);
 
-                    while(!bfs_q.empty()) {
-                        int current_node = bfs_q.pop();
-                        visited.push_back(current_node);
-                        is_visited[current_node] = true;
-                        for (const auto &x : adjacency_list_[current_node]) {
-                            if(is_visited.count(x) == 0) {
-                                bfs_q.push(x);
-                                previous[x] = current_node;
-                                distance[x] = distance[current_node] + 1;
+                        while(!bfs_q.empty()) {
+                            int current_node = bfs_q.front();
+                            bfs_q.pop();
+                            visited.push_back(current_node);
+                            is_visited[current_node] = true;
+                            for (const auto &x : adjacency_list_[current_node]) {
+                                if(is_visited.count(x) == 0) {
+                                    bfs_q.push(x);
+                                    previous[x] = current_node;
+                                    distance[x] = distance[current_node] + 1;
+                                }
                             }
                         }
+                        return;
                     }
-                    return;
                   }
 
 // Returns true if there is at least one path between nodes i and j.

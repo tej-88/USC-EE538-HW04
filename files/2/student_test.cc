@@ -256,3 +256,19 @@ TEST(IsConnected, MultipleNodeNotConnected) {
     Graph g(adjacency_list);
     EXPECT_FALSE(g.IsConnected());
 }
+
+//-----------------------------------------------------------------------------
+
+TEST(BFS, EmptyGraph) {
+    std::map<int, std::set<int>> adjacency_list;
+    Graph g(adjacency_list);
+    std::vector<int> expected_distance;
+    std::map<int, std::vector<int>> expected_path;
+    std::vector<int> expected_visited;
+
+    auto bfs_result = g.BFS(0);
+
+    EXPECT_EQ(expected_distance, bfs_result.distance);
+    EXPECT_EQ(expected_path, bfs_result.path);
+    EXPECT_EQ(expected_visited, bfs_result.visited);
+}
