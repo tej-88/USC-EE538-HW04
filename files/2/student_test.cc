@@ -212,3 +212,4 @@ TEST(IsBidirectional, MultipleNodeBidirectional) {
     Graph g(adjacency_list);
     EXPECT_TRUE(g.IsBidirectional());
 }
+

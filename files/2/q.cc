@@ -93,5 +93,23 @@ bool Graph::IsBidirectional() {
             }
         }
         return true;
-    }
+    }   
+}
+
+// Returns true if the graph is connected, i.e. if we start from each node, we
+// can get to any other node.
+bool Graph::IsConnected() {
+    std::vector<bool> visited(adjacency_list_.size(), false);
+
+    for (const auto &x : adjacency_list_) {
+        visited[x.first] = true;
+        for (const auto &y : adjacency_list_) {
+            if (!visited[y.first]) {
+                if (!IsPathBetweenNodes(x.first, y.first)) {
+                    return false;
+                }
+            }
+        }
+    } 
+    return true;
 }
