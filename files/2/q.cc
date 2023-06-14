@@ -24,7 +24,7 @@ void Graph::DFS_helper(int root, std::map<int, bool> &marks,
                     if (adjacency_list_.count(root) == 0) {
                         return;
                     }
-                    else if (marks[root]) {
+                    if (marks[root]) {
                         return;
                     }
                     else {
@@ -55,4 +55,17 @@ std::vector<int> Graph::DFSAll() {
     }
 
     return visited;
+}
+
+// Returns true if there is at least one path between nodes i and j.
+// Assume i, j are valid nodes in the graph.
+bool Graph::IsPathBetweenNodes(int i, int j) {
+    std::vector<int> i_dfs = DFS(i);
+    auto iter = std::find(i_dfs.begin(), i_dfs.end(), j);
+    if (iter == i_dfs.end()) {
+        return false;
+    }
+    else {
+        return true;
+    }
 }
