@@ -213,3 +213,11 @@ TEST(IsBidirectional, MultipleNodeBidirectional) {
     EXPECT_TRUE(g.IsBidirectional());
 }
 
+//-----------------------------------------------------------------------------
+
+TEST(IsConnected, EmptyGraph) {
+    std::map<int, std::set<int>> adjacency_list;
+    Graph g(adjacency_list);
+    EXPECT_TRUE(g.IsConnected());
+}
+
