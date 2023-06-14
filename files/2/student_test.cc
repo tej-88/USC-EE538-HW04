@@ -115,14 +115,20 @@ TEST(IsPathBetweenNodes, SingleNodeNoEdge) {
     EXPECT_FALSE(g.IsPathBetweenNodes(0, 1));
 }
 
-TEST(DFSAll, SingleNodeSingleEdgeNoPath) {
+TEST(IsPathBetweenNodes, SingleNodeSingleEdgeNoPath) {
     std::map<int, std::set<int>> adjacency_list = {{0, {0}}};
     Graph g(adjacency_list);
     EXPECT_FALSE(g.IsPathBetweenNodes(0, 1));
 }
 
-TEST(DFSAll, SingleNodeSingleEdgePath) {
+TEST(IsPathBetweenNodes, SingleNodeSingleEdgePath) {
     std::map<int, std::set<int>> adjacency_list = {{0, {0}}};
     Graph g(adjacency_list);
     EXPECT_TRUE(g.IsPathBetweenNodes(0, 0));
+}
+
+TEST(IsPathBetweenNodes, TwoNodeUnconnected) {
+    std::map<int, std::set<int>> adjacency_list = {{0, {}}, {1, {}}};
+    Graph g(adjacency_list);
+    EXPECT_FALSE(g.IsPathBetweenNodes(0, 1));
 }
