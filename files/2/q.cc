@@ -107,17 +107,18 @@ void Graph::BFS_helper(int root, std::vector<int> &distance,
                         std::queue<int> bfs_q;
                         std::map<int, bool> is_visited;
                         bfs_q.push(root);
+                        is_visited[root] = true;
 
                         while(!bfs_q.empty()) {
                             int current_node = bfs_q.front();
                             bfs_q.pop();
                             visited.push_back(current_node);
-                            is_visited[current_node] = true;
                             for (const auto &x : adjacency_list_[current_node]) {
                                 if(is_visited.count(x) == 0) {
                                     bfs_q.push(x);
                                     previous[x] = current_node;
                                     distance[x] = distance[current_node] + 1;
+                                    is_visited[x] = true;
                                 }
                             }
                         }

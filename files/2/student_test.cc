@@ -328,3 +328,31 @@ TEST(BFS, TwoNodeConnected) {
     EXPECT_EQ(expected_path, bfs_result.path);
     EXPECT_EQ(expected_visited, bfs_result.visited);
 }
+
+TEST(BFS, MultipleNodeConnected) {
+    std::map<int, std::set<int>> adjacency_list = {{0, {1, 2}}, {1, {0}}, {2, {0, 3}}, {3, {0, 2}}};
+    Graph g(adjacency_list);
+    std::vector<int> expected_distance = {0, 1, 1, 2};
+    std::map<int, std::vector<int>> expected_path = {{0, {}}, {1, {0, 1}}, {2, {0, 2}}, {3, {0, 2, 3}}};
+    std::vector<int> expected_visited = {0, 1, 2, 3};
+
+    auto bfs_result = g.BFS(0);
+
+    EXPECT_EQ(expected_distance, bfs_result.distance);
+    EXPECT_EQ(expected_path, bfs_result.path);
+    EXPECT_EQ(expected_visited, bfs_result.visited);
+}
+
+TEST(BFS, MultipleNodeNotConnected) {
+    std::map<int, std::set<int>> adjacency_list = {{0, {2, 3}}, {1, {4}}, {2, {0, 3}}, {3, {0, 2}}, {4, {1}}};
+    Graph g(adjacency_list);
+    std::vector<int> expected_distance = {0, 0, 1, 1, 0};
+    std::map<int, std::vector<int>> expected_path = {{0, {}}, {1, {}}, {2, {0, 2}}, {3, {0, 3}}, {4, {}}};
+    std::vector<int> expected_visited = {0, 2, 3};
+
+    auto bfs_result = g.BFS(0);
+
+    EXPECT_EQ(expected_distance, bfs_result.distance);
+    EXPECT_EQ(expected_path, bfs_result.path);
+    EXPECT_EQ(expected_visited, bfs_result.visited);
+}
