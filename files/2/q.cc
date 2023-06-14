@@ -69,3 +69,29 @@ bool Graph::IsPathBetweenNodes(int i, int j) {
         return true;
     }
 }
+
+// Returns true if the graph is bidirectional. A bidirectional graph is a
+// graph in which if edge (i,j) is in E, then the edge (j,i) is also in E.
+// An empty graph is considered bidirectional.
+// A graph of a single node is considered bidirectional.
+bool Graph::IsBidirectional() {
+    if (adjacency_list_.size() == 0) {
+        return true;
+    }
+    else if (adjacency_list_.size() == 1) {
+        return true;
+    }
+    else {
+        for (const auto &x : adjacency_list_) {
+            auto node_one = x.first;
+            for (const auto &node_two : x.second) {
+                auto node_two_edges = adjacency_list_[node_two];
+                auto iter = std::find(node_two_edges.begin(), node_two_edges.end(), node_one);
+                if (iter == node_two_edges.end()) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+}
