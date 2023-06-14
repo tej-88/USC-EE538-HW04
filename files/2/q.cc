@@ -57,6 +57,63 @@ std::vector<int> Graph::DFSAll() {
     return visited;
 }
 
+// Performs BFS search from root and returns a result of type BFSReturnValue,
+// which has the following:
+// 1. result.visited (vector): visited nodes in BFS order.
+// 2. result.path (map): a map of node i to a vector, where the vector is the
+// shortest path from root to i.
+// 3. result.distance (vector): element i represents the shortest distance
+// from root to node i.
+//
+// Assume root is a valid node in the graph.
+BFSReturnValue Graph::BFS(int root) {
+    std::vector<int> distance(adjacency_list_.size(), 0);
+    std::vector<int> previous(adjacency_list_.size(), -1);
+    std::vector<int> visited;
+    std::map<int, std::vector<int>> path;
+
+    BFS_helper(root, distance, previous, visited);
+
+    for (const auto &x : previous) {
+        std::vector<int> p;
+        int current_node = x;
+
+        while (current_node != -1) {
+            p.push_back[current_node];
+            current_node = previous[current_node];
+        }
+        std::reverse(p.begin(), p.end());
+        path[x] = p;
+    }
+
+    BFSReturnValue result;
+    result.distance = distance;
+    result.path = path;
+    result.visited =  visited;
+    return result;
+}
+
+void Graph::BFS_helper(int root, std::vector<int> &distance,
+                  std::vector<int> &previous, std::vector<int> &visited) {
+                    std::queue<int> bfs_q;
+                    std::map<int, bool> is_visited;
+                    bfs_q.push(root);
+
+                    while(!bfs_q.empty()) {
+                        int current_node = bfs_q.pop();
+                        visited.push_back(current_node);
+                        is_visited[current_node] = true;
+                        for (const auto &x : adjacency_list_[current_node]) {
+                            if(is_visited.count(x) == 0) {
+                                bfs_q.push(x);
+                                previous[x] = current_node;
+                                distance[x] = distance[current_node] + 1;
+                            }
+                        }
+                    }
+                    return;
+                  }
+
 // Returns true if there is at least one path between nodes i and j.
 // Assume i, j are valid nodes in the graph.
 bool Graph::IsPathBetweenNodes(int i, int j) {
