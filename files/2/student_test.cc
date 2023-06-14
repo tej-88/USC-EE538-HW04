@@ -162,3 +162,11 @@ TEST(IsPathBetweenNodes, MultipleNodeUnonnectedPath) {
     Graph g(adjacency_list);
     EXPECT_TRUE(g.IsPathBetweenNodes(0, 4));
 }
+
+//-----------------------------------------------------------------------------
+
+TEST(IsBidirectional, EmptyGraph) {
+    std::map<int, std::set<int>> adjacency_list;
+    Graph g(adjacency_list);
+    EXPECT_TRUE(g.IsBidirectional());
+}
