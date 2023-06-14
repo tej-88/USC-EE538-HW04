@@ -200,3 +200,15 @@ TEST(IsBidirectional, TwoNodeConnectedNotBidirectional) {
     Graph g(adjacency_list);
     EXPECT_FALSE(g.IsBidirectional());
 }
+
+TEST(IsBidirectional, MultipleNodeNotBidirectional) {
+    std::map<int, std::set<int>> adjacency_list = {{0, {1, 2, 3}}, {1, {0}}, {2, {0, 3}}, {3, {0}}};
+    Graph g(adjacency_list);
+    EXPECT_FALSE(g.IsBidirectional());
+}
+
+TEST(IsBidirectional, MultipleNodeBidirectional) {
+    std::map<int, std::set<int>> adjacency_list = {{0, {1, 2, 3}}, {1, {0}}, {2, {0, 3}}, {3, {0, 2}}};
+    Graph g(adjacency_list);
+    EXPECT_TRUE(g.IsBidirectional());
+}
