@@ -114,3 +114,9 @@ TEST(IsPathBetweenNodes, SingleNodeNoEdge) {
     Graph g(adjacency_list);
     EXPECT_FALSE(g.IsPathBetweenNodes(0, 1));
 }
+
+TEST(DFSAll, SingleNodeSingleEdgeNoPath) {
+    std::map<int, std::set<int>> adjacency_list = {{0, {0}}};
+    Graph g(adjacency_list);
+    EXPECT_FALSE(g.IsPathBetweenNodes(0, 1));
+}
